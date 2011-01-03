@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %title My Latest Web App
+    = stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/drastic-dark/style", "web-app-theme/override", :cache => true
+    = javascript_include_tag :defaults, :cache => true
+    = csrf_meta_tag
+  %body
+    #container
+      #header
+        %h1
+          %a{:href => "/"} My Latest Web App
+        #user-navigation
+          %ul.wat-cf
+            %li
+              %a{:href => "#"}= t("web-app-theme.profile", :default => "Profile")
+            %li
+              %a{:href => "#"}= t("web-app-theme.settings", :default => "Settings")
+            %li
+              %a.logout{:href => "/logout"}= t("web-app-theme.logout", :default => "Logout")
+        #main-navigation
+          %ul.wat-cf
+            %li{ :class => (params[:controller] == "home" ? "first active" : "first") }
+              = link_to "Home", root_path
+      #wrapper.wat-cf
+        .flash
+          - flash.each do |type, message|
+            %div{:class => "message #{type}"}
+              %p= message
+        #main
+          = yield
+          #footer
+            .block
+              %p
+                Copyright &copy; #{Time.now.year} My Latest Web App.
+        #sidebar
+          = yield :sidebar
