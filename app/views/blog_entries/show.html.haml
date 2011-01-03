@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Subject:
+  = @blog_entry.subject
+%p
+  %b Content:
+  = @blog_entry.content
+%p
+  %b Publish at:
+  = @blog_entry.publish_at
+
+= link_to 'Edit', edit_blog_entry_path(@blog_entry)
+\|
+= link_to 'Back', blog_entries_path

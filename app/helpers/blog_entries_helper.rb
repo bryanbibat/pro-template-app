@@ -1,0 +1,2 @@
+module BlogEntriesHelper
+end
