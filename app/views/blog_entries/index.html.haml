@@ -1,23 +1,34 @@
-%h1 Listing blog_entries
-
-%table
-  %tr
-    %th Subject
-    %th Content
-    %th Publish at
-    %th
-    %th
-    %th
-
-  - @blog_entries.each do |blog_entry|
-    %tr
-      %td= blog_entry.subject
-      %td= blog_entry.content
-      %td= blog_entry.publish_at
-      %td= link_to 'Show', blog_entry
-      %td= link_to 'Edit', edit_blog_entry_path(blog_entry)
-      %td= link_to 'Destroy', blog_entry, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Blog entry', new_blog_entry_path
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", blog_entries_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_blog_entry_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      BlogEntries
+    .inner
+      %table.table
+        %tr
+          %th.first ID
+          %th
+            = t("activerecord.attributes.blog_entry.subject", :default => t("activerecord.labels.subject", :default => "Subject"))
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th.last &nbsp;
+        - @blog_entries.each do |blog_entry|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = blog_entry.id
+            %td
+              = link_to blog_entry.subject, blog_entry_path(blog_entry)
+            %td
+              = blog_entry.created_at
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", blog_entry_path(blog_entry)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_blog_entry_path(blog_entry)} |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", blog_entry_path(blog_entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+        = will_paginate @blog_entries
+- content_for :sidebar, render(:partial => 'sidebar')

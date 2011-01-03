@@ -1,15 +1,27 @@
-%p#notice= notice
-
-%p
-  %b Subject:
-  = @blog_entry.subject
-%p
-  %b Content:
-  = @blog_entry.content
-%p
-  %b Publish at:
-  = @blog_entry.publish_at
-
-= link_to 'Edit', edit_blog_entry_path(@blog_entry)
-\|
-= link_to 'Back', blog_entries_path
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", blog_entries_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_blog_entry_path
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", blog_entry_path
+  .content
+    .inner
+      %p
+        %b
+          = t("activerecord.attributes.blog_entry.subject", :default => t("activerecord.labels.subject", :default => "Subject"))
+          \:
+        = @blog_entry.subject
+      %p
+        %b
+          = t("activerecord.attributes.blog_entry.content", :default => t("activerecord.labels.content", :default => "Content"))
+          \:
+        = @blog_entry.content
+      %p
+        %b
+          = t("activerecord.attributes.blog_entry.publish_at", :default => t("activerecord.labels.publish_at", :default => "Publish at"))
+          \:
+        = @blog_entry.publish_at
+      .wat-cf
+        = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_blog_entry_path(@blog_entry), :class => "button"
+        = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), blog_entry_path(@blog_entry), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+- content_for :sidebar, render(:partial => 'sidebar')

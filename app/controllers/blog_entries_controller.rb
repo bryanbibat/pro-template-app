@@ -1,8 +1,9 @@
 class BlogEntriesController < ApplicationController
+  before_filter :authenticate_user!
   # GET /blog_entries
   # GET /blog_entries.xml
   def index
-    @blog_entries = BlogEntry.all
+    @blog_entries = BlogEntry.paginate :page => params[:page], :per_page => 5
 
     respond_to do |format|
       format.html # index.html.erb

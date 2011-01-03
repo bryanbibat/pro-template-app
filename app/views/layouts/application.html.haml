@@ -22,6 +22,8 @@
           %ul.wat-cf
             %li{ :class => (params[:controller] == "home" ? "first active" : "first") }
               = link_to "Home", root_path
+            %li{ :class => (params[:controller] == "blog_entries" ? "active" : nil) }
+              = link_to "Blog Entries", blog_entries_path
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|

@@ -1,5 +1,13 @@
-%h1 New blog_entry
-
-= render 'form'
-
-= link_to 'Back', blog_entries_path
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", blog_entries_path
+      %li.active= link_to "#{t("web-app-theme.new", :default => "New")}", new_blog_entry_path
+  .content
+    %h2.title
+      = t("web-app-theme.new", :default => "New")
+      BlogEntry
+    .inner
+      = form_for :blog_entry, :url => blog_entries_path, :html => { :class => :form } do |f|
+        = render :partial => "form", :locals => {:f => f}
+- content_for :sidebar, render(:partial => 'sidebar')
