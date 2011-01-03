@@ -6,7 +6,7 @@
   .content
     %h2.title
       = t("web-app-theme.new", :default => "New")
-      BlogEntry
+      Blog Entry
     .inner
       = form_for :blog_entry, :url => blog_entries_path, :html => { :class => :form } do |f|
         = render :partial => "form", :locals => {:f => f}
